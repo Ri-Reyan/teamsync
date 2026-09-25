@@ -218,8 +218,16 @@ export default function SprintBoardPage() {
   }, [fetchTasks]);
 
   useEffect(() => {
+    console.log("🔥 Pusher effect fired");
+    console.log("selectedSprint:", selectedSprint);
+    console.log("selectedSprint ID:", selectedSprint?.id);
+
     const currentSprintId = selectedSprint?.id;
-    if (!currentSprintId) return;
+
+    if (!currentSprintId) {
+      console.log("❌ No sprint ID, skipping Pusher");
+      return;
+    }
     let cancelled = false;
     let unsubscribe = () => {};
 
@@ -280,7 +288,7 @@ export default function SprintBoardPage() {
       cancelled = true;
       unsubscribe();
     };
-  }, [selectedSprint?.id, fetchSprints]);
+  }, [selectedSprint?.id, fetchSprints, selectedSprint]);
 
   // --- DRAG AND DROP HANDLER ---
   const handleOnDragEnd = async (result: DropResult) => {
