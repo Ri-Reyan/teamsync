@@ -1,0 +1,29 @@
+enum InvitationStatus {
+  PENDING
+  ACCEPTED
+  DECLINED
+}
+
+enum Role {
+  OWNER
+  ADMIN
+  MEMBER
+}
+
+model Invitation {
+  id           String           @id @default(uuid()) @db.Uuid
+  sender_id      String           @db.Uuid
+  workspace_id String           @db.Uuid
+  member_id    String?          @db.Uuid
+  member_email String @unique   @db.VarChar(255)
+  role         Role           @default(MEMBER)
+  status       InvitationStatus @default(PENDING)
+  createdAt    DateTime         @default(now())
+  updatedAt    DateTime         @updatedAt
+
+  user      User      @relation(fields: [sender_id], references: [id], onDelete: Cascade)
+  workspace Workspace @relation(fields: [workspace_id], references: [id], onDelete: Cascade)
+  member    Member?   @relation(fields: [member_id], references: [id], onDelete: SetNull)
+
+  @@map("invitations")
+}

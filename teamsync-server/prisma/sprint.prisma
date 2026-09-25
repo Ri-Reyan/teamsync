@@ -1,0 +1,16 @@
+model Sprint {
+  id              Int      @id @default(autoincrement())
+  project_id      String   @db.Uuid
+  name            String   @db.VarChar(255)
+  task_count      Int      @default(0)
+  sprint_progress Int      @default(0)
+  startDate       DateTime
+  endDate         DateTime
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  project Project @relation(fields: [project_id], references: [id], onDelete: Cascade)
+  tasks   Task[]
+
+  @@map("sprints")
+}

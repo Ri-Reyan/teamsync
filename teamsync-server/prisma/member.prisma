@@ -1,0 +1,22 @@
+enum WorkspaceRole {
+  ADMIN
+  MEMBER
+  OWNER
+}
+
+model Member {
+  id           String        @id @default(uuid()) @db.Uuid
+  workspace_id String        @db.Uuid
+  user_id      String        @db.Uuid
+  role         WorkspaceRole @default(MEMBER)
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+
+  workspace Workspace @relation(fields: [workspace_id], references: [id], onDelete: Cascade)
+  user      User      @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  invitations Invitation[]
+
+  @@unique([workspace_id, user_id])
+  @@map("members")
+}

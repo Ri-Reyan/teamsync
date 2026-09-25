@@ -1,0 +1,42 @@
+enum PlatformRole {
+  USER
+  ADMIN
+}
+
+enum SignUpMethod {
+  CREDENTIALS
+  GOOGLE
+}
+
+enum UserStatus {
+  ACTIVE
+  SUSPENDED
+}
+
+enum Package {
+  STARTER
+  PROFESSIONAL
+  ENTERPRISE
+}
+
+model User {
+  id           String       @id @default(uuid()) @db.Uuid
+  username     String       @db.VarChar(255)
+  email        String       @unique @db.VarChar(255)
+  password     String?      @db.VarChar(255)
+  platformRole PlatformRole @default(USER)
+  isPremium    Boolean      @default(false)
+  package      Package      @default(STARTER)
+  signUpMethod SignUpMethod @default(CREDENTIALS)
+  status       UserStatus   @default(ACTIVE)
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+
+  workspaces   Workspace[]
+  members      Member[]
+  invitations  Invitation[]
+  payment      Payment?
+  summary      Summary[]
+
+  @@map("users")
+}

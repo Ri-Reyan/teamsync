@@ -1,0 +1,27 @@
+enum PaymentMethod {
+  STRIPE
+}
+
+enum PaymentStatus {
+  PENDING
+  PAID
+  FAILED
+  CANCELED
+}
+
+model Payment {
+  id             String        @id @default(uuid()) @db.Uuid
+  user_id        String        @unique @db.Uuid
+  method         PaymentMethod
+  transection_id String?       @unique @db.VarChar(255)
+  amount         Int
+  payment_status PaymentStatus @default(PENDING)
+  package        Package
+  paidAt         DateTime?
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+
+  user User @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@map("payments")
+}
