@@ -1,0 +1,43 @@
+@import "tailwindcss";
+
+@layer base {
+  body {
+    background-color: #fffdf5;
+    color: #000000;
+    overflow-x: hidden;
+  }
+}
+
+/* Neo-brutalism Utilities */
+.neo-border {
+  border: 4px solid #000000;
+}
+
+.neo-shadow {
+  box-shadow: 6px 6px 0px 0px #000000;
+}
+
+.neo-shadow-lg {
+  box-shadow: 10px 10px 0px 0px #000000;
+}
+
+.neo-shadow-sm {
+  box-shadow: 4px 4px 0px 0px #000000;
+}
+
+.neo-btn {
+  border: 4px solid #000000;
+  box-shadow: 4px 4px 0px 0px #000000;
+  transition: all 0.1s ease-in-out;
+  font-weight: 700;
+}
+
+.neo-btn:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0px 0px #000000;
+}
+
+.neo-btn:active {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0px 0px #000000;
+}
