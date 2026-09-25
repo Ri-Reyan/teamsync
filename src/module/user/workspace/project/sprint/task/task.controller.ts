@@ -20,7 +20,7 @@ const createTask = catchAsync(async (req: Request, res: Response) => {
   }
 
   const task = await taskService.createTask(sprintId, result.data);
-  publishTaskEvent(sprintId, "task_created", {
+  await publishTaskEvent(sprintId, "task_created", {
     sprintId,
     task: { ...task, status: task.task_status },
   });
@@ -64,7 +64,7 @@ const updateTask = catchAsync(async (req: Request, res: Response) => {
   }
 
   const task = await taskService.updateTask(taskId, result.data);
-  publishTaskEvent(task.sprint_id, "task_updated", {
+  await publishTaskEvent(task.sprint_id, "task_updated", {
     sprintId: task.sprint_id,
     task: { ...task, status: task.task_status },
   });
@@ -85,7 +85,7 @@ const deleteTask = catchAsync(async (req: Request, res: Response) => {
   }
 
   const task = await taskService.deleteTask(taskId);
-  publishTaskEvent(task.sprint_id, "task_deleted", {
+  await publishTaskEvent(task.sprint_id, "task_deleted", {
     sprintId: task.sprint_id,
     taskId,
   });

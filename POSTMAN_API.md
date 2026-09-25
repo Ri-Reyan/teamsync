@@ -2,6 +2,18 @@
 
 This document is a Postman-ready reference for the TeamSync API.
 
+## Importable Postman Collection
+
+Import [TeamSync.postman_collection.json](TeamSync.postman_collection.json) directly into Postman using **Import > File**. The collection includes endpoint groups, sample JSON request bodies, collection variables, and post-response scripts that save newly created resource IDs automatically.
+
+After importing:
+
+1. Select the collection and set `baseUrl` to your API URL if it is not running locally.
+2. Run the login request first. Postman will keep the `accessToken` and `refreshToken` HTTP-only cookies in its cookie jar.
+3. Run the create requests in order to populate `workspaceId`, `projectId`, `sprintId`, and `taskId`.
+
+Keep Postman's cookie jar enabled. Do not add JWT secrets or manually copy the HTTP-only cookies into request headers.
+
 ## 1. Postman Environment
 
 Create a Postman environment named `TeamSync Local` or `TeamSync Production` with these variables:

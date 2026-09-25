@@ -22,14 +22,15 @@ export const pusher = new Pusher({
   useTLS: true,
 });
 
-export const publishTaskEvent = (
+export const publishTaskEvent = async (
   sprintId: number,
   event: string,
   data: unknown,
 ) => {
-  void pusher
-    .trigger(`private-sprint-${sprintId}`, event, data)
-    .catch((error) => {
-      console.error(`Failed to publish Pusher event: ${event}`, error);
-    });
+  try {
+    await pusher.trigger(`private-sprint-${sprintId}`, event, data);
+  } catch (error) {
+    console.error(`Failed to publish Pusher event: ${event}`, error);
+    throw error;
+  }
 };
