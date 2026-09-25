@@ -76,7 +76,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   // ২) role অনুযায়ী redirect — user/pathname বদলালে রান হবে, কিন্তু loading শেষ না হওয়া পর্যন্ত কিছু করবে না
   useEffect(() => {
-    if (loading || !isAuthenticated || !user) return;
+    if (loading || !isAuthenticated) return;
 
     const admin = isAdmin(user);
 
