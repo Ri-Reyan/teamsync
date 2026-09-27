@@ -4,14 +4,30 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import React, { useRef } from "react";
 import { Zap, ArrowUpRight } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/router";
+import { useAuthModal } from "@/context/auth.context";
 
 export default function Footer() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const router = useRouter();
+
+  const { user, isAuthenticated, openAuthModal } = useAuthModal();
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start end", "end end"],
   });
+
+  const handleAction = (e: React.MouseEvent) => {
+    e.preventDefault();
+    if (user) {
+      router.push("/dashboard");
+    } else if (isAuthenticated) {
+      router.push("/dashboard");
+    } else {
+      openAuthModal("login");
+    }
+  };
 
   return (
     <footer
@@ -44,7 +60,7 @@ export default function Footer() {
         </p>
 
         {/* CTA Button */}
-        <div className="pt-4">
+        <div onClick={handleAction} className="pt-4">
           <a
             href="#signup"
             className="inline-flex items-center gap-3 border-4 border-black bg-[#C4B5FD] px-8 py-4 text-base font-black uppercase text-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all"
